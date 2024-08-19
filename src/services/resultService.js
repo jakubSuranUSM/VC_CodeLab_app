@@ -5,14 +5,21 @@ const REPO = "VC_codelab_test";
 
 console.log(GITHUB_TOKEN);
 
-export async function getFolders(repoOwner = USERNAME, repoName = REPO) {
+export async function getFolders(
+  signal,
+  repoOwner = USERNAME,
+  repoName = REPO
+) {
   const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const response = await fetch(url, {
     headers: {
-      Authorization: `token ${GITHUB_TOKEN}`,
+      // Authorization: `token ${GITHUB_TOKEN}`,
       Accept: "application/vnd.github.v3+json",
     },
+    signal,
   });
 
   if (!response.ok) {
@@ -25,4 +32,40 @@ export async function getFolders(repoOwner = USERNAME, repoName = REPO) {
     .map((item) => item.path);
 
   return folders;
+}
+
+export async function getFileContent(signal, repoOwner, repoName, filePath) {
+  const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+  console.log(url);
+
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `token ${GITHUB_TOKEN}`,
+      Accept: "application/vnd.github.v3+json",
+    },
+    signal,
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.statusText}`);
+  }
+
+  const file = await response.json();
+  const content = atob(file.content);
+  return content;
+}
+
+export async function getScores(signal) {
+  let content = await getFileContent(signal, USERNAME, REPO, "scores.json");
+  console.log(content);
+  content = JSON.parse(content);
+
+  const keys = Object.keys(content);
+  let scores = keys.map((key) => ({
+    name: key,
+    score: content[key].avg_score,
+  }));
+
+  scores.sort((a, b) => a.score - b.score);
+  return scores;
 }
