@@ -1,5 +1,6 @@
 import { html, css, LitElement } from "lit";
 import "./components/challenge-title.js";
+import "./components/result-card.js";
 
 class App extends LitElement {
   static styles = css`
@@ -13,6 +14,7 @@ class App extends LitElement {
       <header class="header">
         <challenge-title></challenge-title>
       </header>
+      <result-card></result-card>
     `;
   }
 }
