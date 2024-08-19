@@ -1,11 +1,14 @@
 import { LitElement, html, css } from "lit";
 import { Task } from "@lit/task";
-import { getFolders } from "../services/resultService.js";
+import { getScores } from "../services/resultService.js";
+import "./podium-element.js";
 
 class ResultCard extends LitElement {
   static styles = css`
     :host {
       display: block;
+      width: 60%;
+      margin: 0 auto;
       padding: 16px;
       text-align: center;
       font-family: Atrial, sans-serif;
@@ -24,13 +27,7 @@ class ResultCard extends LitElement {
 
   _resultTask = new Task(this, {
     task: async ([], { signal }) => {
-      const response = await fetch(`http://example.com/product/${productId}`, {
-        signal,
-      });
-      if (!response.ok) {
-        throw new Error(response.status);
-      }
-      return response.json();
+      return await getScores(signal);
     },
     args: () => [],
   });
@@ -38,7 +35,22 @@ class ResultCard extends LitElement {
   render() {
     return this._resultTask.render({
       pending: () => html`<p>Loading product...</p>`,
-      complete: (result) => html` <p>${result}</p> `,
+      complete: (result) => {
+        console.log(result);
+        // TODO: error handling if there are not enough results
+        return html`<podium-element
+            .firstPlace=${result[0]}
+            .secondPlace=${result[1]}
+            .thirdPlace=${result[2]}
+          ></podium-element>
+          <!-- TODO: display only 4th and below -->
+          ${result.map(
+            (r, index) =>
+              html`<p>
+                <strong>${index + 4}th:</strong> ${r.name} - ${r.score}
+              </p>`
+          )}`;
+      },
       error: (e) => html`<p>Error: ${e}</p>`,
     });
   }
