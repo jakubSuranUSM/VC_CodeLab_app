@@ -1,9 +1,11 @@
 {
   "name": "VC-CodeLab-app",
+  "name": "VC-CodeLab-app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "vite",
+    "test": "jest"
     "test": "jest"
   },
   "keywords": [],
