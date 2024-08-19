@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit";
-import { Task } from "./task.js";
+import { Task } from "@lit/task";
+import { getFolders } from "../services/resultService.js";
 
 class ResultCard extends LitElement {
   static styles = css`
@@ -21,14 +22,8 @@ class ResultCard extends LitElement {
     avgRuntime: { type: Number },
   };
 
-  constructor() {
-    super();
-    this.userName = "Loading...";
-    this.avgRuntime = 0;
-  }
-
-  _userTask = new Task(this, {
-    task: async ([productId], { signal }) => {
+  _resultTask = new Task(this, {
+    task: async ([], { signal }) => {
       const response = await fetch(`http://example.com/product/${productId}`, {
         signal,
       });
@@ -37,16 +32,13 @@ class ResultCard extends LitElement {
       }
       return response.json();
     },
-    args: () => [this.productId],
+    args: () => [],
   });
 
   render() {
-    return this._productTask.render({
+    return this._resultTask.render({
       pending: () => html`<p>Loading product...</p>`,
-      complete: (product) => html`
-        <h1>${product.name}</h1>
-        <p>${product.price}</p>
-      `,
+      complete: (result) => html` <p>${result}</p> `,
       error: (e) => html`<p>Error: ${e}</p>`,
     });
   }

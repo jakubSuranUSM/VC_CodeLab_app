@@ -1,12 +1,11 @@
-import fetch from "node-fetch";
-import dotenv from "dotenv";
-
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 const USERNAME = "jakubSuranUSM";
 const REPO = "VC_codelab_test";
 
-async function getFolders(repoOwner = USERNAME, repoName = REPO) {
+console.log(GITHUB_TOKEN);
+
+export async function getFolders(repoOwner = USERNAME, repoName = REPO) {
   const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
 
   const response = await fetch(url, {
