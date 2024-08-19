@@ -6,7 +6,7 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const USERNAME = "jakubSuranUSM";
 const REPO = "VC_codelab_test";
 
-async function getFolders(repoOwner = USERNAME, repoName = REPO) {
+export async function getFolders(repoOwner = USERNAME, repoName = REPO) {
   const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
 
   const response = await fetch(url, {
