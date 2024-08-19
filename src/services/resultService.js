@@ -34,7 +34,12 @@ export async function getFolders(
   return folders;
 }
 
-export async function getFileContent(signal, repoOwner, repoName, filePath) {
+export async function getFileContent(
+  signal = {},
+  repoOwner = USERNAME,
+  repoName = REPO,
+  filePath = "scores.json"
+) {
   const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
   console.log(url);
 
