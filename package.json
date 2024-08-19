@@ -1,9 +1,11 @@
 {
   "name": "VC-CodeLab-app",
+  "name": "VC-CodeLab-app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "vite",
+    "test": "jest"
     "test": "jest"
   },
   "keywords": [],
@@ -11,13 +13,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@lit/task": "^1.0.1",
     "dotenv": "^16.4.5",
     "lit": "^3.2.0",
     "node-fetch": "^3.3.2",
+    "VC_CodeLab_app": "file:",
     "VC-CodeLab-app": "file:"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "jest": "^29.7.0",
     "vite": "^5.4.1"
   }
