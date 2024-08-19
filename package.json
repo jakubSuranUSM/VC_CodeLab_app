@@ -1,0 +1,17 @@
+{
+  "name": "vc_codelab_test",
+  "version": "1.0.0",
+  "description": "Test repository for VC CodeLab submission project",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "node-fetch": "^3.3.2"
+  }
+}

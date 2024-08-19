@@ -1,0 +1,71 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.komodotools
+*.kate-swp
+*.kate-swp.*
+*.swp
+*.swo
+*.swp
+*~
+*.bak
+*.tmp
+*.tmp.*
+*.log
+*.pid
+*.pid.*
+*.seed
+*.pid.lock
+*.log.*
+*.log-*
+*.stackdump
+*.dump
+*.out
+*.app
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.dmp
+*.gcda
+*.gcno
+*.gcov
+*.coverage
+.nyc_output/
+coverage/
+.nycrc
+*.log
+logs/
+*.log.*
+*.log-*
+*.log-*/
+
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Testing
+test/
+tests/
+__tests__/
+*.test.js
+*.spec.js
