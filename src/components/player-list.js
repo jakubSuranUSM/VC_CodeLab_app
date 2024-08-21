@@ -15,6 +15,16 @@ class PlayerList extends LitElement {
       font-size: 2em;
       margin: 50px 0;
     }
+
+    .run-time {
+      width: 30px;
+      margin-right: 5px;
+    }
+
+    .player {
+      margin-top: 20px; 
+      margin-bottom: 10px;
+    }
   `;
 
   static properties = {
@@ -23,7 +33,7 @@ class PlayerList extends LitElement {
 
   constructor() {
     super();
-    this.players = "Loading...";
+    this.players = ["Loading..."];
   }
 
   async connectedCallback() {
@@ -44,7 +54,20 @@ class PlayerList extends LitElement {
   render() {
     return html`
       <div>
-        ${this.players}
+        ${this.players.map(player => 
+          html`
+          <div class="player-container">
+            <div class="player">
+              ${player}
+            </div>
+            <div class="input-fields">
+              ${[...Array(10).keys()].map(i => 
+                html`<input type="text" class="run-time" id="${player}-time${i+1}" name="${player}-time${i+1}">`
+                )}
+              <button>Submit</button>
+            </div>
+          </div>
+        `)}
       </div>
     `;
   }
