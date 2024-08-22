@@ -49,7 +49,16 @@ class PlayerList extends LitElement {
     } catch (error) {
       console.error('failed to get player names:', error);
     }
-  } 
+  }
+  
+  handleSubmit() {
+    const inputData = this.players.map(player => {
+      const playerData = {};
+      for (let i = 1; i <= 10; i++) {
+        playerData[`time${i}`] = this.shadowRoot.querySelector(`#${player}-time${i}`).value;
+      }
+    });
+  }
 
   render() {
     return html`
