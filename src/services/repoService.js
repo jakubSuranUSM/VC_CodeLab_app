@@ -1,9 +1,7 @@
-const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
-
 const USERNAME = "jakubSuranUSM";
 const REPO = "VC_codelab_test";
 
-console.log(GITHUB_TOKEN);
+// console.log(GITHUB_TOKEN);
 
 export async function getFolders(
   signal,
@@ -11,8 +9,6 @@ export async function getFolders(
   repoName = REPO
 ) {
   const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const response = await fetch(url, {
     headers: {
@@ -35,7 +31,7 @@ export async function getFolders(
 }
 
 export async function getFileContent(
-  signal = {},
+  signal,
   repoOwner = USERNAME,
   repoName = REPO,
   filePath = "scores.json"
@@ -45,7 +41,7 @@ export async function getFileContent(
 
   const response = await fetch(url, {
     headers: {
-      Authorization: `token ${GITHUB_TOKEN}`,
+      // Authorization: `token ${GITHUB_TOKEN}`,
       Accept: "application/vnd.github.v3+json",
     },
     signal,
@@ -72,4 +68,67 @@ export async function getScores(signal) {
   }));
 
   return scores;
+}
+
+export async function getRepositories(signal, owner = "VC-CodeLabs") {
+  const url = `https://api.github.com/users/${owner}/repos`;
+
+  const response = await fetch(url, {
+    headers: {
+      Accept: "application/vnd.github.v3+json",
+    },
+    signal,
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.statusText}`);
+  }
+
+  const repositories = await response.json();
+  const repositoryNames = repositories.map((repo) => repo.name);
+
+  return repositoryNames;
+}
+
+export async function upload(
+  content,
+  path = "scores.json",
+  message = "update scores"
+) {
+  const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+
+  const existingFile = await (
+    await fetch(
+      `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${path}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: `Bearer ${GITHUB_TOKEN}`,
+        },
+      }
+    )
+  ).json();
+
+  const response = await fetch(
+    `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${path}`,
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+      },
+      body: JSON.stringify({
+        message: message,
+        content: btoa(content),
+        sha: existingFile.sha,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    throw response;
+  }
+
+  return response.json();
 }
