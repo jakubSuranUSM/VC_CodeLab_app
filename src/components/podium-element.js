@@ -30,19 +30,19 @@ class Podium extends LitElement {
       <podium-card
         class="second-place"
         .name=${this.secondPlace.name}
-        .score=${this.secondPlace.score}
+        .score=${this.secondPlace.avgScore}
         .placeColor=${"silver"}
       ></podium-card>
       <podium-card
         class="first-place"
         .name=${this.firstPlace.name}
-        .score=${this.firstPlace.score}
+        .score=${this.firstPlace.avgScore}
         .placeColor=${"gold"}
       ></podium-card>
       <podium-card
         class="third-place"
         .name=${this.thirdPlace.name}
-        .score=${this.thirdPlace.score}
+        .score=${this.thirdPlace.avgScore}
         .placeColor=${"#cd7f32"}
       ></podium-card>
     `;

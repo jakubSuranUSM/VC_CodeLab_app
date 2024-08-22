@@ -62,15 +62,14 @@ export async function getFileContent(
 
 export async function getScores(signal) {
   let content = await getFileContent(signal, USERNAME, REPO, "scores.json");
-  console.log(content);
   content = JSON.parse(content);
 
   const keys = Object.keys(content);
   let scores = keys.map((key) => ({
     name: key,
-    score: content[key].avg_score,
+    scores: content[key].scores,
+    avgScore: content[key].avg_score,
   }));
 
-  scores.sort((a, b) => a.score - b.score);
   return scores;
 }

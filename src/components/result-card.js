@@ -27,7 +27,9 @@ class ResultCard extends LitElement {
 
   _resultTask = new Task(this, {
     task: async ([], { signal }) => {
-      return await getScores(signal);
+      let scores = await getScores(signal);
+      scores.sort((a, b) => a.avgScore - b.avgScore);
+      return scores;
     },
     args: () => [],
   });
@@ -47,7 +49,7 @@ class ResultCard extends LitElement {
           ${result.map(
             (r, index) =>
               html`<p>
-                <strong>${index + 4}th:</strong> ${r.name} - ${r.score}
+                <strong>${index + 4}th:</strong> ${r.name} - ${r.avgScore}
               </p>`
           )}`;
       },
