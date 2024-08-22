@@ -16,7 +16,7 @@ export async function getFolders(
 
   const response = await fetch(url, {
     headers: {
-      // Authorization: `token ${GITHUB_TOKEN}`,
+      //Authorization: `token ${GITHUB_TOKEN}`,
       Accept: "application/vnd.github.v3+json",
     },
     signal,
