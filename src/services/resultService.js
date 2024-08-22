@@ -12,8 +12,6 @@ export async function getFolders(
 ) {
   const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
   const response = await fetch(url, {
     headers: {
       //Authorization: `token ${GITHUB_TOKEN}`,
@@ -45,7 +43,7 @@ export async function getFileContent(
 
   const response = await fetch(url, {
     headers: {
-      Authorization: `token ${GITHUB_TOKEN}`,
+      //Authorization: `token ${GITHUB_TOKEN}`,
       Accept: "application/vnd.github.v3+json",
     },
     signal,
