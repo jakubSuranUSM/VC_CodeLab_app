@@ -1,6 +1,7 @@
 import { html, css, LitElement } from "lit";
 import "./components/challenge-title.js";
 import "./components/result-card.js";
+import "./components/player-list.js";
 
 class App extends LitElement {
   static styles = css`
@@ -14,10 +15,11 @@ class App extends LitElement {
       <header class="header">
         <challenge-title></challenge-title>
       </header>
-      <result-card></result-card>
+      <player-list></player-list>
+
+      <!--<result-card></result-card>-->
     `;
   }
 }
 
 customElements.define("app-root", App);
-
