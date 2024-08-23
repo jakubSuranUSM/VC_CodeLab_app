@@ -85,9 +85,10 @@ export async function getRepositories(signal, owner = "VC-CodeLabs") {
   }
 
   const repositories = await response.json();
-  const repositoryNames = repositories.map((repo) => repo.name);
+  return repositories;
+  // const repositoryNames = repositories.map((repo) => repo.name);
 
-  return repositoryNames;
+  // return repositoryNames;
 }
 
 export async function upload(
