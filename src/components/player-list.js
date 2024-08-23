@@ -1,14 +1,14 @@
-import { LitElement, html, css } from 'lit';
-import { property } from 'lit/decorators.js';
-import { getFolders } from '../services/resultService';
+import { LitElement, html, css } from "lit";
+import { property } from "lit/decorators.js";
+import { getFolders } from "../services/repoService";
 
 class PlayerList extends LitElement {
   static styles = css`
     :host {
-    display: block;
-    padding: 16px;
-    text-align: center;
-    font-family: Arial, sans-serif;
+      display: block;
+      padding: 16px;
+      text-align: center;
+      font-family: Arial, sans-serif;
     }
 
     h1 {
@@ -22,13 +22,13 @@ class PlayerList extends LitElement {
     }
 
     .player {
-      margin-top: 20px; 
+      margin-top: 20px;
       margin-bottom: 10px;
     }
   `;
 
   static properties = {
-    players: { type: Array }
+    players: { type: Array },
   };
 
   constructor() {
@@ -47,30 +47,36 @@ class PlayerList extends LitElement {
       this.players = data;
       console.log(this.players);
     } catch (error) {
-      console.error('failed to get player names:', error);
+      console.error("failed to get player names:", error);
     }
-  } 
+  }
 
   render() {
     return html`
       <div>
-        ${this.players.map(player => 
-          html`
-          <div class="player-container">
-            <div class="player">
-              ${player}
-            </div>
-            <div class="input-fields">
-              ${[...Array(10).keys()].map(i => 
-                html`<input type="text" class="run-time" id="${player}-time${i+1}" name="${player}-time${i+1}">`
-                )}
-              <button>Submit</button>
-            </div>
-          </div>
-        `)}
+        ${this.players.map(
+          (player) =>
+            html`
+              <div class="player-container">
+                <div class="player">${player}</div>
+                <div class="input-fields">
+                  ${[...Array(10).keys()].map(
+                    (i) =>
+                      html`<input
+                        type="text"
+                        class="run-time"
+                        id="${player}-time${i + 1}"
+                        name="${player}-time${i + 1}"
+                      />`
+                  )}
+                  <button>Submit</button>
+                </div>
+              </div>
+            `
+        )}
       </div>
     `;
   }
 }
 
-customElements.define('player-list', PlayerList);
+customElements.define("player-list", PlayerList);
