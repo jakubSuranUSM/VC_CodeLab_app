@@ -96,7 +96,8 @@ export async function upload(
   path = "scores.json",
   message = "update scores"
 ) {
-  const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+  // TODO: implement getting the token from github OAuth to avoid exposing it
+  //const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
   const existingFile = await (
     await fetch(
@@ -105,7 +106,7 @@ export async function upload(
         method: "GET",
         headers: {
           Accept: "application/vnd.github+json",
-          Authorization: `Bearer ${GITHUB_TOKEN}`,
+          //Authorization: `Bearer ${GITHUB_TOKEN}`,
         },
       }
     )
@@ -117,7 +118,7 @@ export async function upload(
       method: "PUT",
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        //Authorization: `Bearer ${GITHUB_TOKEN}`,
       },
       body: JSON.stringify({
         message: message,
