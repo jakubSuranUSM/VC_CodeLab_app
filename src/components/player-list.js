@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
-import { getFolders } from '../services/resultService';
+import { getFolders, upload } from '../services/repoService';
 
 class PlayerList extends LitElement {
   static styles = css`
@@ -51,13 +51,38 @@ class PlayerList extends LitElement {
     }
   }
   
-  handleSubmit() {
-    const inputData = this.players.map(player => {
-      const playerData = {};
-      for (let i = 1; i <= 10; i++) {
-        playerData[`time${i}`] = this.shadowRoot.querySelector(`#${player}-time${i}`).value;
+  handlePlayerSubmit(player) {
+    const playerData = {};
+    playerData[player] = []
+
+    for (let i = 1; i <= 10; i++) {
+      const inputElement = this.shadowRoot.querySelector(`#${player}-time${i}`).value;
+
+      if (inputElement) {
+        playerData[player].push(Number(inputElement));
+      } else {
+        playerData[player].push(0);
       }
+    }
+
+    let totalScore = 0; 
+    playerData[player].forEach(time => {
+      totalScore += time;
     });
+
+    // always 10 scores
+    const avgScore = totalScore / 10;
+    
+    const playerJson = {
+      player: player,
+      scores: playerData[player],
+      avgScore: avgScore
+    };
+    
+    const jsonString = JSON.stringify(playerJson, null, 2);
+    console.log(jsonString);
+
+    upload(jsonString);
   }
 
   render() {
@@ -73,7 +98,7 @@ class PlayerList extends LitElement {
               ${[...Array(10).keys()].map(i => 
                 html`<input type="text" class="run-time" id="${player}-time${i+1}" name="${player}-time${i+1}">`
                 )}
-              <button>Submit</button>
+              <button class="submit-button" @click="${() => this.handlePlayerSubmit(player)}">Submit</button>
             </div>
           </div>
         `)}

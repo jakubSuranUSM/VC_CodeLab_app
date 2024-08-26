@@ -40,12 +40,7 @@ export async function getFileContent(
   console.log(url);
 
   const response = await fetch(url, {
-    headers: {
-<<<<<<< HEAD:src/services/resultService.js
-      //Authorization: `token ${GITHUB_TOKEN}`,
-=======
-      // Authorization: `token ${GITHUB_TOKEN}`,
->>>>>>> main:src/services/repoService.js
+    headers: { 
       Accept: "application/vnd.github.v3+json",
     },
     signal,

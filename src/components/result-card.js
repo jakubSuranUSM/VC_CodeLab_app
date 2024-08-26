@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit";
 import { Task } from "@lit/task";
-import { getScores } from "../services/resultService.js";
+import { getScores } from "../services/repoService.js";
 import "./podium-element.js";
 
 class ResultCard extends LitElement {
